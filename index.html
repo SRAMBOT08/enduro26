@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ENDURO'26 | SNS College of Technology</title>
+<link rel="icon" type="image/jpeg" href="logo.jpeg"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Orbitron:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#D98A29",
+                        "mud-brown": "#2b1d0e",
+                        "charcoal": "#121212",
+                        "desert-sand": "#d2b48c",
+                        "metallic": "#a8a8a8",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "industrial": ["Orbitron", "sans-serif"]
+                    },
+                    animation: {
+                        'pulse-glow': 'pulse-glow 1.5s ease-in-out infinite',
+                        'neon-flicker': 'neon-flicker 2s infinite',
+                    },
+                    keyframes: {
+                        'pulse-glow': {
+                            '0%, 100%': { boxShadow: '0 0 10px #D98A29, 0 0 20px #D98A29', transform: 'scale(1)' },
+                            '50%': { boxShadow: '0 0 25px #D98A29, 0 0 50px #D98A29', transform: 'scale(1.02)' },
+                        },
+                        'neon-flicker': {
+                            '0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%': { opacity: '1' },
+                            '20%, 24%, 55%': { opacity: '0.8' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .gritty-overlay {
+                background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDRDZFNXYCAMIyiM2FpYRZUXPg7EBgejqE8q1fAzFXfZ0q6T6Ws_dTi5x-3r_B9o3sd_6yqgOdlSdWC0u2HbHkYfapf9O8-H_h7e_xZ9PU4LOmYm1hpSSt6O5uYPFxHEXzw305CDm23sqvi6MoyrzvphSGIT5pXQ9IQY_uWV5ku2A9AoN18inGEa0Kr5NsrCa7KH2C5fVo_-_d3jBXwTe7wl3nuknpLkhEskj4jq21Cks9j5-Sf5m3y60iqUzTXALeKPP7bpfhmwH0);
+                mix-blend-mode: multiply;
+                opacity: 0.15;
+                pointer-events: none;
+            }
+            .text-glow {
+                text-shadow: 0 0 15px rgba(217, 138, 41, 0.7);
+            }
+            .intense-orange-glow {
+                filter: drop-shadow(0 0 12px #D98A29);
+            }
+            .metallic-border {
+                border: 4px solid;
+                border-image: linear-gradient(145deg, #8a8a8a, #ffffff, #4a4a4a) 1;
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            }
+            .mechanical-press:active {
+                transform: translateY(4px);
+                box-shadow: 0 1px 0 #2b1d0e;
+            }
+            .rev-slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                height: 24px;
+                width: 24px;
+                background: #D98A29;
+                border-radius: 2px;
+                cursor: pointer;
+                box-shadow: 0 0 15px #D98A29;
+                border: 2px solid #fff;
+            }
+            .industrial-table {
+                border-collapse: separate;
+                border-spacing: 0 8px;
+            }
+            .glow-orange {
+                box-shadow: 0 0 30px rgba(217, 138, 41, 0.4);
+            }
+            .logo-text-gradient {
+                background: linear-gradient(to bottom, #f3d490 0%, #d98a29 50%, #8b5a1c 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+            }
+            .blueprint-grid {
+                background-image: radial-gradient(rgba(217, 138, 41, 0.1) 1px, transparent 1px);
+                background-size: 30px 30px;
+            }
+            .ignition-flash {
+                animation: flash 0.5s ease-out forwards;
+            }
+            @keyframes flash {
+                0% { background: rgba(217, 138, 41, 0.8); opacity: 1; }
+                100% { background: transparent; opacity: 0; }
+            }
+            .idle-vibration {
+                animation: vibrate 0.15s linear infinite;
+            }
+            @keyframes vibrate {
+                0% { transform: rotate(var(--rot)) translate(0.5px, 0.5px); }
+                50% { transform: rotate(var(--rot)) translate(-0.5px, -0.5px); }
+                100% { transform: rotate(var(--rot)) translate(0.5px, 0.5px); }
+            }
+            .race-track-progress {
+                background: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 15px,
+                    rgba(217, 138, 41, 0.1) 15px,
+                    rgba(217, 138, 41, 0.1) 30px
+                );
+            }
+            .gauge-tick {
+                position: absolute;
+                width: 2px;
+                height: 12px;
+                background: rgba(255,255,255,0.3);
+                left: 50%;
+                top: 10px;
+                transform-origin: 50% 115px;
+            }
+            .gauge-tick-major {
+                height: 20px;
+                width: 3px;
+                background: rgba(255,255,255,0.8);
+            }
+            .gauge-tick-red {
+                background: #dc2626;
+            }
+            .live-glow-row {
+                background: linear-gradient(90deg, transparent, rgba(217, 138, 41, 0.2), transparent);
+                position: relative;
+            }
+            .live-glow-row::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border: 2px solid rgba(217, 138, 41, 0.7);
+                box-shadow: inset 0 0 25px rgba(217, 138, 41, 0.4), 0 0 35px rgba(217, 138, 41, 0.3);
+                animation: pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+                pointer-events: none;
+            }
+            @keyframes pulse-border {
+                0%, 100% { opacity: 0.6; }
+                50% { opacity: 1; }
+            }
+        }
+    </style>
+</head>
+<body class="bg-charcoal font-display text-white selection:bg-primary/30 overflow-x-hidden transition-all duration-700" id="body-root">
+<div class="fixed inset-0 z-[100] pointer-events-none" id="flash-overlay"></div>
+<div class="fixed right-0 top-0 h-full w-4 z-[60] flex flex-col items-center py-12 pointer-events-none">
+<div class="h-full w-1 bg-white/5 relative rounded-full overflow-hidden race-track-progress">
+<div class="absolute bottom-0 left-0 w-full bg-primary h-[45%] shadow-[0_0_15px_#D98A29]"></div>
+</div>
+</div>
+<div class="fixed inset-0 z-0">
+<img alt="Dirt bike engine close up" class="w-full h-full object-cover brightness-[0.2] contrast-125 transition-all duration-1000" id="ambient-bg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgb7GJ_XOW_INTq1Kcm3l7fJ6ioVSVfbF_-WUVYoKVw7zwlJsTTjkVRyRK7zYsAI0l_mfBk1KBQiumLnsHfWDlvLHTsyd_sxqW0b9-X0FViMrktJcsFuFzA68IvNmah-n8Cuo4CnU2Kp4KwsxU4oebGxrDv1O0B4AlQca4LgIj6TEx9qxi2OcIIEjnXyxAyKRlws0mLktc4eSSCST99_EMlvell0jUwhHTndyGOZ81xjbFWm-i_gUOn7tfqp5Tq5PwNWm8Z3g83Ss"/>
+<div class="absolute inset-0 bg-gradient-to-b from-charcoal via-transparent to-mud-brown/80"></div>
+<div class="absolute inset-0 gritty-overlay"></div>
+</div>
+<nav class="fixed top-0 left-0 w-full z-[100] px-6 py-6 flex justify-between items-center bg-black/60 backdrop-blur-xl border-b border-white/10">
+<div class="flex items-center gap-4">
+<img alt="SNS Logo" class="w-12 h-12 object-contain" src="coll_.jpeg"/>
+<img alt="Logo" class="w-12 h-12 object-contain" src="logo_1.png"/>
+<div class="hidden sm:block">
+<h2 class="text-[10px] font-industrial font-bold uppercase tracking-tight text-white leading-none">SNS College of Technology</h2>
+<p class="text-[7px] uppercase tracking-[0.2em] text-primary font-bold">Automobile Engineering</p>
+</div>
+</div>
+<div class="hidden lg:flex items-center gap-8">
+<a class="text-[10px] font-industrial font-bold tracking-[0.3em] text-white hover:text-primary transition-colors" href="#home">HOME</a>
+<a class="text-[10px] font-industrial font-bold tracking-[0.3em] text-white/60 hover:text-white transition-colors" href="#about">ABOUT</a>
+<a class="text-[10px] font-industrial font-bold tracking-[0.3em] text-white/60 hover:text-white transition-colors" href="#timeline">TIMELINE</a>
+<a class="text-[10px] font-industrial font-bold tracking-[0.3em] text-white/60 hover:text-white transition-colors" href="#rulebook">RULEBOOK</a>
+</div>
+<div class="flex items-center gap-6">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScQ53ZOludURdRHk9i5NBtN1-nNb1DnsSLSqvPJwRaoqx4-kQ/viewform?usp=header" target="_blank" class="px-6 py-3 bg-primary text-black font-industrial text-[11px] tracking-widest hover:brightness-110 transition-all uppercase font-black shadow-[0_0_20px_rgba(217,138,41,0.3)]">Register Now</a>
+</div>
+</nav>
+<section class="relative z-10 min-h-screen flex flex-col items-center justify-center p-6 pt-32" id="home">
+<div class="max-w-7xl mx-auto w-full flex flex-col items-center text-center">
+<div class="mb-4">
+<span class="text-[12px] font-industrial text-primary tracking-[0.6em] uppercase">SNS College of Technology Presents</span>
+</div>
+<div class="relative mb-8">
+<div class="absolute -inset-20 bg-primary/5 blur-[120px] rounded-full pointer-events-none transition-all duration-1000" id="hero-glow"></div>
+<div class="flex flex-col items-center select-none">
+<span class="text-6xl md:text-8xl font-industrial italic font-black logo-text-gradient tracking-tighter">ENDURO'</span>
+<span class="text-8xl md:text-[140px] font-industrial font-black logo-text-gradient tracking-tighter leading-[0.8] mt-[-10px]">26</span>
+</div>
+</div>
+<div class="bg-primary/20 text-primary px-8 py-3 text-xs md:text-sm font-industrial tracking-[0.4em] border border-primary/30 uppercase mb-16 inline-block">
+            DEPARTMENT OF AUTOMOBILE ENGINEERING
+        </div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl w-full mb-24 font-industrial">
+<div class="flex flex-col items-center group">
+<div class="w-full h-24 bg-black/60 backdrop-blur-xl border border-primary/40 rounded-sm flex items-center justify-center relative overflow-hidden shadow-[0_0_15px_rgba(217,138,41,0.2)]">
+<div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
+<span class="text-4xl md:text-6xl font-black text-white text-glow tabular-nums" id="days">00</span>
+</div>
+<span class="mt-3 text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold">DAYS</span>
+</div>
+<div class="flex flex-col items-center group">
+<div class="w-full h-24 bg-black/60 backdrop-blur-xl border border-primary/40 rounded-sm flex items-center justify-center relative overflow-hidden shadow-[0_0_15px_rgba(217,138,41,0.2)]">
+<div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
+<span class="text-4xl md:text-6xl font-black text-white text-glow tabular-nums" id="hours">00</span>
+</div>
+<span class="mt-3 text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold">HOURS</span>
+</div>
+<div class="flex flex-col items-center group">
+<div class="w-full h-24 bg-black/60 backdrop-blur-xl border border-primary/40 rounded-sm flex items-center justify-center relative overflow-hidden shadow-[0_0_15px_rgba(217,138,41,0.2)]">
+<div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
+<span class="text-4xl md:text-6xl font-black text-white text-glow tabular-nums" id="minutes">00</span>
+</div>
+<span class="mt-3 text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold">MINUTES</span>
+</div>
+<div class="flex flex-col items-center group">
+<div class="w-full h-24 bg-primary/10 backdrop-blur-xl border-2 border-primary rounded-sm flex items-center justify-center shadow-[0_0_25px_rgba(217,138,41,0.3)]">
+<span class="text-4xl md:text-6xl font-black text-primary text-glow tabular-nums" id="seconds">00</span>
+</div>
+<span class="mt-3 text-[10px] uppercase tracking-[0.3em] text-primary font-bold">SECONDS</span>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center justify-center gap-16 lg:gap-32 w-full">
+<div class="relative w-72 h-72 flex items-center justify-center bg-[#0a0a0a] rounded-full border-[10px] border-[#222] shadow-[0_0_50px_rgba(0,0,0,1),inset_0_0_20px_rgba(217,138,41,0.2)]">
+<div class="absolute inset-0 rounded-full border-2 border-white/10"></div>
+<svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 250 250">
+<circle class="text-white/5" cx="125" cy="125" fill="none" r="100" stroke="currentColor" stroke-dasharray="628" stroke-width="12"></circle>
+<circle class="text-primary transition-all duration-300" cx="125" cy="125" fill="none" id="gauge-progress" r="100" stroke="currentColor" stroke-dasharray="0 628" stroke-width="12" style="transform-origin: center; transform: rotate(135deg);"></circle>
+</svg>
+<div class="absolute inset-0">
+<div class="absolute top-[82%] left-[28%] -translate-x-1/2 text-[12px] font-industrial text-white/60 font-black">0</div>
+<div class="absolute top-[45%] left-[10%] -translate-y-1/2 text-[12px] font-industrial text-white/60 font-black">2</div>
+<div class="absolute top-[10%] left-[50%] -translate-x-1/2 text-[12px] font-industrial text-white/60 font-black">4</div>
+<div class="absolute top-[45%] right-[10%] -translate-y-1/2 text-[12px] font-industrial text-white/60 font-black">6</div>
+<div class="absolute top-[82%] right-[28%] translate-x-1/2 text-[12px] font-industrial text-red-600 font-black">8</div>
+<div class="gauge-tick gauge-tick-major" style="transform: rotate(-135deg)"></div>
+<div class="gauge-tick" style="transform: rotate(-112.5deg)"></div>
+<div class="gauge-tick gauge-tick-major" style="transform: rotate(-90deg)"></div>
+<div class="gauge-tick" style="transform: rotate(-67.5deg)"></div>
+<div class="gauge-tick gauge-tick-major" style="transform: rotate(-45deg)"></div>
+<div class="gauge-tick" style="transform: rotate(-22.5deg)"></div>
+<div class="gauge-tick gauge-tick-major" style="transform: rotate(0deg)"></div>
+<div class="gauge-tick" style="transform: rotate(22.5deg)"></div>
+<div class="gauge-tick gauge-tick-major" style="transform: rotate(45deg)"></div>
+<div class="gauge-tick" style="transform: rotate(67.5deg)"></div>
+<div class="gauge-tick gauge-tick-major" style="transform: rotate(90deg)"></div>
+<div class="gauge-tick" style="transform: rotate(112.5deg)"></div>
+<div class="gauge-tick gauge-tick-major gauge-tick-red" style="transform: rotate(135deg)"></div>
+</div>
+<div class="flex flex-col items-center z-20">
+<span class="text-5xl font-industrial font-black text-white tracking-tighter tabular-nums" id="rpm-display">0</span>
+<span class="text-[9px] font-industrial text-primary tracking-[0.3em] uppercase font-bold">RPM x1000</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10 transition-transform duration-300" id="tach-needle" style="transform: rotate(-135deg); --rot: -135deg">
+<div class="relative h-full w-full">
+<div class="absolute left-1/2 bottom-1/2 -translate-x-1/2 h-[105px] w-1.5 bg-gradient-to-t from-red-600 to-primary shadow-[0_0_15px_rgba(220,38,38,0.7)] rounded-full origin-bottom"></div>
+</div>
+</div>
+<div class="absolute w-12 h-12 bg-gradient-to-b from-[#333] to-black rounded-full border-4 border-[#222] z-30 shadow-2xl flex items-center justify-center">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col items-center gap-8">
+<button class="mechanical-press group relative" id="start-btn">
+<div class="absolute -inset-10 bg-primary/10 blur-3xl group-hover:bg-primary/25 transition-all rounded-full" id="btn-glow-pulse"></div>
+<div class="relative w-40 h-40 rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#0a0a0a] border-[10px] border-black flex items-center justify-center shadow-[0_15px_50px_rgba(0,0,0,0.9)]">
+<div class="w-20 h-20 rounded-full bg-gradient-to-tr from-red-950 via-red-800 to-red-900 flex items-center justify-center border-4 border-black/50 shadow-[inset_0_2px_10px_rgba(255,255,255,0.05)] transition-all" id="inner-button">
+<span class="material-symbols-outlined text-white/40 text-4xl font-black">power_settings_new</span>
+</div>
+<div class="absolute inset-4 border border-white/5 rounded-full pointer-events-none"></div>
+</div>
+<span class="mt-6 block text-[11px] font-industrial font-black uppercase tracking-[0.4em] text-white/30" id="engine-status">IGNITION OFF</span>
+</button>
+<div class="flex flex-col items-center gap-3">
+<input class="rev-slider appearance-none w-64 h-2 bg-black/60 rounded-full outline-none border border-white/10 disabled:opacity-30" disabled="" id="rev-engine-slider" max="8000" min="0" type="range" value="0"/>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-white/40">vibration</span>
+<span class="text-[10px] font-industrial text-white/40 tracking-[0.2em] uppercase italic font-bold">Throttle: Slide to REV</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="relative z-10 py-32 px-6 md:px-24 bg-gradient-to-b from-charcoal to-black" id="about">
+<div class="max-w-6xl mx-auto">
+<div class="grid lg:grid-cols-2 gap-20 items-center">
+<div class="space-y-10">
+<div class="inline-block px-4 py-1 bg-primary text-black font-industrial text-xs font-black tracking-widest mb-6">THE MANIFESTO</div>
+<h2 class="text-5xl md:text-7xl font-industrial font-black text-white leading-tight uppercase italic">
+                    PUSHING THE <span class="text-primary">REDLINE</span> OF INNOVATION.
+                </h2>
+<div class="space-y-8 text-white/70 text-lg font-light leading-relaxed max-w-xl border-l-2 border-primary/30 pl-8">
+<p>Born from the grit of the workshop and the passion for raw speed, ENDURO'26 represents the pinnacle of collegiate engineering.</p>
+<p class="text-white font-medium italic">"This is not just a race... It is fire on wheels."</p>
+<p>Join the Department of Automobile Engineering at SNSCT for a high-octane challenge where student engineers transform raw steel into high-performance racing machines designed to dominate the dust.</p>
+</div>
+</div>
+<div class="relative">
+<div class="aspect-square bg-black p-4 metallic-border rotate-3 hover:rotate-0 transition-transform duration-500">
+<img alt="Dirt bike action" class="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgb7GJ_XOW_INTq1Kcm3l7fJ6ioVSVfbF_-WUVYoKVw7zwlJsTTjkVRyRK7zYsAI0l_mfBk1KBQiumLnsHfWDlvLHTsyd_sxqW0b9-X0FViMrktJcsFuFzA68IvNmah-n8Cuo4CnU2Kp4KwsxU4oebGxrDv1O0B4AlQca4LgIj6TEx9qxi2OcIIEjnXyxAyKRlws0mLktc4eSSCST99_EMlvell0jUwhHTndyGOZ81xjbFWm-i_gUOn7tfqp5Tq5PwNWm8Z3g83Ss"/>
+</div>
+<div class="absolute -bottom-10 -left-10 p-10 bg-primary text-black font-industrial font-black shadow-2xl metallic-border -rotate-3">
+<div class="text-[10px] tracking-widest uppercase mb-1">Total Prize Pool</div>
+<div class="text-6xl text-glow">₹20,000</div>
+<div class="text-[10px] tracking-widest uppercase mt-4 text-black/60 italic">CHAMPIONS' PURSE</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="relative z-10 py-32 px-6 md:px-24 bg-black overflow-hidden" id="timeline">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 blur-[200px] rounded-full"></div>
+</div>
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="text-4xl md:text-5xl font-industrial font-black text-white uppercase tracking-tighter mb-4 italic">Race Day Itinerary</h2>
+<div class="w-24 h-1 bg-primary mx-auto"></div>
+</div>
+<div class="bg-charcoal/40 backdrop-blur-xl border border-white/5 p-4 md:p-8 rounded-sm metallic-border">
+<div class="overflow-x-auto">
+<table class="w-full industrial-table text-left">
+<thead>
+<tr class="bg-primary/10 border-b border-primary/30">
+<th class="py-6 px-6 font-industrial text-sm text-primary uppercase tracking-[0.2em]">Timing</th>
+<th class="py-6 px-6 font-industrial text-sm text-primary uppercase tracking-[0.2em]">Activity</th>
+<th class="py-6 px-6 font-industrial text-sm text-primary uppercase tracking-[0.2em]">Status</th>
+</tr>
+</thead>
+<tbody class="text-white/80">
+<tr class="border-b border-white/5">
+<td class="py-5 px-6 font-industrial text-sm">09:00 AM - 10:00 AM</td>
+<td class="py-5 px-6 font-bold uppercase tracking-wide">Reporting Time</td>
+<td class="py-5 px-6 text-[10px] font-industrial text-white/30 uppercase">Upcoming</td>
+</tr>
+<tr class="border-b border-white/5">
+<td class="py-5 px-6 font-industrial text-sm">10:00 AM - 10:30 AM</td>
+<td class="py-5 px-6 font-bold uppercase tracking-wide">Technical Inspection</td>
+<td class="py-5 px-6 text-[10px] font-industrial text-white/30 uppercase">Upcoming</td>
+</tr>
+<tr class="border-b border-white/5">
+<td class="py-5 px-6 font-industrial text-sm">11:00 AM - 12:30 PM</td>
+<td class="py-5 px-6 font-bold uppercase tracking-wide">Static Events</td>
+<td class="py-5 px-6 text-[10px] font-industrial text-white/30 uppercase">Upcoming</td>
+</tr>
+<tr class="border-b border-white/5">
+<td class="py-5 px-6 font-industrial text-sm">01:45 PM - 03:00 PM</td>
+<td class="py-5 px-6 font-bold uppercase tracking-wide opacity-60">Endurance Race</td>
+<td class="py-5 px-6 text-[10px] font-industrial text-white/30 uppercase">Upcoming</td>
+</tr>
+<tr>
+<td class="py-5 px-6 font-industrial text-sm">03:30 PM - 04:00 PM</td>
+<td class="py-5 px-6 font-bold uppercase tracking-wide opacity-60">Prize Distribution</td>
+<td class="py-5 px-6 text-[10px] font-industrial text-white/30 uppercase">Upcoming</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section class="relative z-10 py-32 px-6 md:px-24 bg-charcoal">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="text-4xl md:text-5xl font-industrial font-black text-white uppercase tracking-tighter mb-4 italic">Events List</h2>
+<div class="w-24 h-1 bg-primary mx-auto"></div>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="bg-black/40 backdrop-blur-xl border border-white/5 p-8 rounded-sm metallic-border">
+<h3 class="font-industrial text-xl text-primary uppercase tracking-widest mb-8 border-b border-primary/20 pb-4">Static Round</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-4 bg-white/5 p-4 border-l-2 border-primary hover:bg-white/10 transition-colors">
+<span class="text-primary font-industrial font-black">01</span>
+<span class="text-white/80 font-bold uppercase tracking-wide text-sm">Technical Inspection</span>
+</li>
+<li class="flex items-center gap-4 bg-white/5 p-4 border-l-2 border-primary hover:bg-white/10 transition-colors">
+<span class="text-primary font-industrial font-black">02</span>
+<span class="text-white/80 font-bold uppercase tracking-wide text-sm">Presentation</span>
+</li>
+<li class="flex items-center gap-4 bg-white/5 p-4 border-l-2 border-primary hover:bg-white/10 transition-colors">
+<span class="text-primary font-industrial font-black">03</span>
+<span class="text-white/80 font-bold uppercase tracking-wide text-sm">Brake Test</span>
+</li>
+<li class="flex items-center gap-4 bg-white/5 p-4 border-l-2 border-primary hover:bg-white/10 transition-colors">
+<span class="text-primary font-industrial font-black">04</span>
+<span class="text-white/80 font-bold uppercase tracking-wide text-sm">Acceleration</span>
+</li>
+<li class="flex items-center gap-4 bg-white/5 p-4 border-l-2 border-primary hover:bg-white/10 transition-colors">
+<span class="text-primary font-industrial font-black">05</span>
+<span class="text-white/80 font-bold uppercase tracking-wide text-sm">Auto Cross</span>
+</li>
+<li class="flex items-center gap-4 bg-white/5 p-4 border-l-2 border-primary hover:bg-white/10 transition-colors">
+<span class="text-primary font-industrial font-black">06</span>
+<span class="text-white/80 font-bold uppercase tracking-wide text-sm">Skid Pad Test</span>
+</li>
+</ul>
+</div>
+<div class="bg-black/40 backdrop-blur-xl border border-white/5 p-8 rounded-sm metallic-border h-fit">
+<h3 class="font-industrial text-xl text-primary uppercase tracking-widest mb-8 border-b border-primary/20 pb-4">Dynamic Round</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-4 bg-primary/10 p-4 border-l-4 border-primary hover:bg-primary/20 transition-colors">
+<span class="text-primary font-industrial font-black">01</span>
+<span class="text-white font-black uppercase tracking-widest text-sm">Endurance</span>
+</li>
+</ul>
+<div class="mt-12 opacity-20 flex justify-center">
+<span class="material-symbols-outlined text-9xl">speed</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="relative z-10 py-32 px-6 md:px-24 bg-charcoal overflow-hidden" id="rulebook">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="text-4xl md:text-5xl font-industrial font-black text-white uppercase tracking-tighter mb-4 italic">The Rulebook</h2>
+<div class="w-24 h-1 bg-primary mx-auto"></div>
+</div>
+<div class="relative w-full aspect-video md:aspect-[21/9] bg-black border border-primary/20 metallic-border overflow-hidden blueprint-grid flex items-center justify-center group">
+<div class="absolute top-4 left-4 text-primary/20 font-industrial text-[8px] tracking-widest uppercase">TECH_SPECS_REV_04</div>
+<div class="absolute bottom-4 right-4 text-primary/20 font-industrial text-[8px] tracking-widest uppercase">SNSCT_ENGINEERING_DEPT</div>
+<div class="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
+<span class="material-symbols-outlined text-[400px]">engineering</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-8 text-center px-12">
+<div class="w-24 h-24 rounded-full border-4 border-dashed border-primary/40 flex items-center justify-center group-hover:rotate-180 transition-transform duration-1000">
+<span class="material-symbols-outlined text-primary text-5xl">settings</span>
+</div>
+<div class="max-w-md">
+<h3 class="text-2xl font-industrial font-bold text-white uppercase mb-4 tracking-tighter">Under Construction</h3>
+<p class="text-primary font-medium italic text-lg leading-relaxed">
+                        "The rulebook is currently being tuned. Full technical regulations will be released soon."
+                    </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="relative z-10 py-32 px-6 md:px-24 bg-black">
+<div class="max-w-7xl mx-auto">
+<div class="grid lg:grid-cols-12 gap-16 items-center">
+<div class="lg:col-span-6 space-y-16">
+<div class="space-y-8">
+<h3 class="text-3xl font-industrial font-black text-white uppercase tracking-tighter">Event Protocol</h3>
+<div class="grid gap-6">
+<div class="p-6 bg-white/5 border border-white/10 flex gap-6 items-center hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl">calendar_month</span>
+<div>
+<h4 class="font-industrial text-sm text-white uppercase">Date</h4>
+<p class="text-white/40 text-xs">4th March 2026</p>
+</div>
+</div>
+<div class="p-6 bg-white/5 border border-white/10 flex gap-6 items-center hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl">location_on</span>
+<div>
+<h4 class="font-industrial text-sm text-white uppercase">Venue</h4>
+<p class="text-white/40 text-xs">Open Auditorium, SNSCT</p>
+</div>
+</div>
+<div class="p-6 bg-white/5 border border-white/10 flex gap-6 items-center hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl">payments</span>
+<div>
+<h4 class="font-industrial text-sm text-white uppercase">Registration Fee</h4>
+<p class="text-white/40 text-xs">₹4,000 / Team (6 members)</p>
+<p class="text-primary/60 text-[10px] mt-1 italic font-bold">+ ₹500 PER ADDITIONAL MEMBER</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-6 flex flex-col items-center justify-center">
+<div class="relative w-full max-w-md p-1 bg-gradient-to-tr from-primary/50 via-primary to-primary/50 glow-orange">
+<div class="bg-black p-12 text-center space-y-8">
+<div class="space-y-2">
+<h3 class="text-4xl font-industrial font-black text-white uppercase tracking-tighter">Ready to Race?</h3>
+<p class="text-white/40 text-[10px] uppercase tracking-[0.3em]">Registration closes 4th March 2026</p>
+</div>
+<div class="flex flex-col gap-4">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScQ53ZOludURdRHk9i5NBtN1-nNb1DnsSLSqvPJwRaoqx4-kQ/viewform?usp=header" target="_blank" class="group relative w-full overflow-hidden bg-primary py-8 transition-all hover:scale-[1.02] active:scale-[0.98] block">
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+<span class="relative z-10 text-2xl font-industrial font-black text-black uppercase tracking-[0.2em]">REGISTER NOW</span>
+</a>
+<p class="text-[10px] text-white/30 uppercase tracking-widest italic">Instant confirmation via Official Portal</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer class="relative z-10 bg-black pt-24 pb-12 px-8 border-t border-white/5">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8">
+<img alt="SNS Logo" class="w-32 h-32 object-contain" src="coll_.jpeg"/>
+<div class="text-[10px] font-industrial uppercase tracking-widest text-white/40 text-center">
+<p>© 2026 SNS College of Technology</p>
+<p class="text-primary/60 font-bold">Department of Automobile Engineering</p>
+</div>
+<img alt="Logo" class="w-32 h-32 object-contain" src="logo_1.png"/>
+</div>
+<div class="mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] font-industrial text-white/20 uppercase tracking-[0.3em]">
+<p>Endurance is Engineering</p>
+<div class="flex gap-8">
+<a class="hover:text-white" href="#">Privacy</a>
+<a class="hover:text-white" href="#">Liability Waiver</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+    const slider = document.getElementById('rev-engine-slider');
+    const needle = document.getElementById('tach-needle');
+    const rpmDisplay = document.getElementById('rpm-display');
+    const gaugeProgress = document.getElementById('gauge-progress');
+    const startBtn = document.getElementById('start-btn');
+    const innerBtn = document.getElementById('inner-button');
+    const flashOverlay = document.getElementById('flash-overlay');
+    const ambientBg = document.getElementById('ambient-bg');
+    const heroGlow = document.getElementById('hero-glow');
+    const engineStatus = document.getElementById('engine-status');
+    const bodyRoot = document.getElementById('body-root');
+    // Countdown logic
+    const raceDate = new Date("March 4, 2026 09:00:00").getTime();
+    const updateCountdown = () => {
+        const now = new Date().getTime();
+        const distance = raceDate - now;
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("days").innerText = d.toString().padStart(2, '0');
+        document.getElementById("hours").innerText = h.toString().padStart(2, '0');
+        document.getElementById("minutes").innerText = m.toString().padStart(2, '0');
+        document.getElementById("seconds").innerText = s.toString().padStart(2, '0');
+    };
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+    let isStarted = false;
+    const START_ANGLE = -135;
+    const TOTAL_SWEEP = 270;
+    const MAX_STROKE = 628;
+    startBtn.addEventListener('click', () => {
+        if (isStarted) return;
+        isStarted = true;
+        flashOverlay.classList.add('ignition-flash');
+        setTimeout(() => flashOverlay.classList.remove('ignition-flash'), 500);
+        ambientBg.style.filter = "brightness(0.5) contrast(150%)";
+        heroGlow.style.backgroundColor = "rgba(217, 138, 41, 0.4)";
+        heroGlow.style.filter = "blur(180px)";
+        innerBtn.classList.remove('from-red-950', 'via-red-800', 'to-red-900');
+        innerBtn.classList.add('from-red-600', 'via-red-500', 'to-red-400', 'shadow-[0_0_30px_rgba(220,38,38,0.6)]');
+        innerBtn.querySelector('span').classList.remove('text-white/40');
+        innerBtn.querySelector('span').classList.add('text-white');
+        engineStatus.textContent = "ENGINE IDLING";
+        engineStatus.classList.remove('text-white/30');
+        engineStatus.classList.add('text-primary', 'text-glow');
+        slider.disabled = false;
+        needle.classList.add('idle-vibration');
+        updateGauge(0);
+    });
+    function updateGauge(val) {
+        const rotation = START_ANGLE + (val / 8000) * TOTAL_SWEEP;
+        needle.style.setProperty('--rot', `${rotation}deg`);
+        needle.style.transform = `rotate(${rotation}deg)`;
+        const progress = (val / 8000) * (MAX_STROKE * 0.75);
+        gaugeProgress.style.strokeDasharray = `${progress} 628`;
+        rpmDisplay.textContent = Math.floor(val);
+    }
+    slider.addEventListener('input', (e) => {
+        if (!isStarted) return;
+        const val = parseInt(e.target.value);
+        updateGauge(val);
+        if (val > 200) {
+            needle.classList.remove('idle-vibration');
+            const shake = Math.min((val - 200) / 1000, 2);
+            needle.style.transform = `rotate(${START_ANGLE + (val / 8000) * TOTAL_SWEEP}deg) translate(${Math.random() * shake}px, ${Math.random() * shake}px)`;
+        } else {
+            needle.classList.add('idle-vibration');
+        }
+    });
+    slider.addEventListener('change', () => {
+        if (!isStarted) return;
+        let currentVal = parseInt(slider.value);
+        const decel = setInterval(() => {
+            if (currentVal <= 0) {
+                clearInterval(decel);
+                slider.value = 0;
+                updateGauge(0);
+                needle.classList.add('idle-vibration');
+            } else {
+                currentVal -= 400;
+                if (currentVal < 0) currentVal = 0;
+                slider.value = currentVal;
+                updateGauge(currentVal);
+            }
+        }, 15);
+    });
+</script>
+
+</body></html>
