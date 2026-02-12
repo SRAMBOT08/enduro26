@@ -275,7 +275,9 @@
 <div class="absolute -inset-10 bg-primary/10 blur-3xl group-hover:bg-primary/25 transition-all rounded-full" id="btn-glow-pulse"></div>
 <div class="relative w-40 h-40 rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#0a0a0a] border-[10px] border-black flex items-center justify-center shadow-[0_15px_50px_rgba(0,0,0,0.9)]">
 <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-red-950 via-red-800 to-red-900 flex items-center justify-center border-4 border-black/50 shadow-[inset_0_2px_10px_rgba(255,255,255,0.05)] transition-all" id="inner-button">
-<span class="material-symbols-outlined text-white/40 text-4xl font-black">power_settings_new</span>
+<div class="w-8 h-8 border-4 border-white/40 rounded-full flex items-center justify-center">
+<div class="w-0 h-6 border-l-2 border-white/40"></div>
+</div>
 </div>
 <div class="absolute inset-4 border border-white/5 rounded-full pointer-events-none"></div>
 </div>
@@ -586,8 +588,6 @@
             heroGlow.style.filter = "blur(180px)";
             innerBtn.classList.remove('from-red-950', 'via-red-800', 'to-red-900');
             innerBtn.classList.add('from-red-600', 'via-red-500', 'to-red-400', 'shadow-[0_0_30px_rgba(220,38,38,0.6)]');
-            innerBtn.querySelector('span').classList.remove('text-white/40');
-            innerBtn.querySelector('span').classList.add('text-white');
             engineStatus.textContent = "ENGINE IDLING";
             engineStatus.classList.remove('text-white/30');
             engineStatus.classList.add('text-primary', 'text-glow');
@@ -616,8 +616,6 @@
             heroGlow.style.filter = "blur(120px)";
             innerBtn.classList.remove('from-red-600', 'via-red-500', 'to-red-400', 'shadow-[0_0_30px_rgba(220,38,38,0.6)]');
             innerBtn.classList.add('from-red-950', 'via-red-800', 'to-red-900');
-            innerBtn.querySelector('span').classList.remove('text-white');
-            innerBtn.querySelector('span').classList.add('text-white/40');
             engineStatus.textContent = "IGNITION OFF";
             engineStatus.classList.remove('text-primary', 'text-glow', 'text-red-500');
             engineStatus.classList.add('text-white/30');
