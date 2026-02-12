@@ -149,11 +149,96 @@
                 0%, 100% { opacity: 0.6; }
                 50% { opacity: 1; }
             }
+            .fire-left, .fire-right {
+                position: fixed;
+                top: 0;
+                width: 80px;
+                height: 100vh;
+                z-index: 5;
+                pointer-events: none;
+                filter: blur(1px);
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity 0.8s ease-in-out, visibility 0s linear 0.8s;
+            }
+            .fire-left.active, .fire-right.active {
+                visibility: visible;
+                opacity: 1;
+                transition: opacity 0.8s ease-in-out, visibility 0s linear 0s;
+            }
+            .fire-left {
+                left: 0;
+                background: linear-gradient(to right, 
+                    rgba(217, 138, 41, 0.4) 0%,
+                    rgba(255, 100, 0, 0.3) 20%,
+                    rgba(255, 69, 0, 0.2) 40%,
+                    transparent 100%);
+            }
+            .fire-left.active {
+                animation: fire-flicker-left 0.3s ease-in-out infinite alternate;
+            }
+            .fire-right {
+                right: 0;
+                background: linear-gradient(to left, 
+                    rgba(217, 138, 41, 0.4) 0%,
+                    rgba(255, 100, 0, 0.3) 20%,
+                    rgba(255, 69, 0, 0.2) 40%,
+                    transparent 100%);
+            }
+            .fire-right.active {
+                animation: fire-flicker-right 0.4s ease-in-out infinite alternate;
+            }
+            @keyframes fire-flicker-left {
+                0% { 
+                    opacity: 0.8; 
+                    transform: scaleX(1) translateY(0px);
+                }
+                25% {
+                    opacity: 0.6;
+                    transform: scaleX(0.95) translateY(-10px);
+                }
+                50% {
+                    opacity: 0.9;
+                    transform: scaleX(1.1) translateY(5px);
+                }
+                75% {
+                    opacity: 0.7;
+                    transform: scaleX(0.9) translateY(-5px);
+                }
+                100% { 
+                    opacity: 0.85; 
+                    transform: scaleX(1.05) translateY(0px);
+                }
+            }
+            @keyframes fire-flicker-right {
+                0% { 
+                    opacity: 0.85; 
+                    transform: scaleX(1.05) translateY(0px);
+                }
+                25% {
+                    opacity: 0.7;
+                    transform: scaleX(0.9) translateY(5px);
+                }
+                50% {
+                    opacity: 0.9;
+                    transform: scaleX(1.1) translateY(-10px);
+                }
+                75% {
+                    opacity: 0.6;
+                    transform: scaleX(0.95) translateY(-5px);
+                }
+                100% { 
+                    opacity: 0.8; 
+                    transform: scaleX(1) translateY(0px);
+                }
+            }
         }
     </style>
 </head>
 <body class="bg-charcoal font-display text-white selection:bg-primary/30 overflow-x-hidden transition-all duration-700" id="body-root">
 <div class="fixed inset-0 z-[100] pointer-events-none" id="flash-overlay"></div>
+<div class="fire-left"></div>
+<div class="fire-right"></div>
 <div class="fixed right-0 top-0 h-full w-4 z-[60] flex flex-col items-center py-12 pointer-events-none">
 <div class="h-full w-1 bg-white/5 relative rounded-full overflow-hidden race-track-progress">
 <div class="absolute bottom-0 left-0 w-full bg-primary h-[45%] shadow-[0_0_15px_#D98A29]"></div>
@@ -187,9 +272,9 @@
 <div class="max-w-7xl mx-auto w-full">
 <div class="grid lg:grid-cols-2 gap-16 items-center">
 <div class="flex flex-col items-start text-left">
-<div class="mb-6">
-<span class="text-[12px] font-industrial text-primary tracking-[0.6em] uppercase">SNS College of Technology Presents</span>
-</div>
+<div class="bg-primary/20 text-primary px-8 py-3 text-xs md:text-sm font-industrial tracking-[0.4em] border border-primary/30 uppercase mb-8 inline-block">
+            DEPARTMENT OF AUTOMOBILE ENGINEERING
+        </div>
 <div class="relative mb-8">
 <div class="absolute -inset-20 bg-primary/5 blur-[120px] rounded-full pointer-events-none transition-all duration-1000" id="hero-glow"></div>
 <div class="flex flex-col items-start select-none">
@@ -197,9 +282,6 @@
 <span class="text-8xl md:text-[140px] font-industrial font-black logo-text-gradient tracking-tighter leading-[0.8] mt-[-10px]">26</span>
 </div>
 </div>
-<div class="bg-primary/20 text-primary px-8 py-3 text-xs md:text-sm font-industrial tracking-[0.4em] border border-primary/30 uppercase mb-12 inline-block">
-            DEPARTMENT OF AUTOMOBILE ENGINEERING
-        </div>
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full font-industrial">
 <div class="flex flex-col items-center group">
 <div class="w-full h-20 bg-black/60 backdrop-blur-xl border border-primary/40 rounded-sm flex items-center justify-center relative overflow-hidden shadow-[0_0_15px_rgba(217,138,41,0.2)]">
@@ -509,6 +591,18 @@
 <div class="text-[10px] font-industrial uppercase tracking-widest text-white/40 text-center">
 <p>© 2026 SNS College of Technology</p>
 <p class="text-primary/60 font-bold">Department of Automobile Engineering</p>
+<div class="flex items-center justify-center gap-6 mt-6">
+<a href="mailto:sripupg09@gmail.com" class="group" title="Email">
+<svg class="w-8 h-8 fill-white/40 group-hover:fill-primary transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+</svg>
+</a>
+<a href="https://www.instagram.com/speedtwenties?igsh=ODVqemEzZm5saTE5" target="_blank" class="group" title="Instagram">
+<svg class="w-8 h-8 fill-white/40 group-hover:fill-primary transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2m-.2 2C5.6 4 4 5.6 4 7.6v8.8C4 18.4 5.6 20 7.6 20h8.8c2 0 3.6-1.6 3.6-3.6V7.6C20 5.6 18.4 4 16.4 4H7.6m9.65 1.5c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25M12 7c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5m0 2c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+</svg>
+</a>
+</div>
 </div>
 <img alt="Logo" class="w-32 h-32 object-contain" src="logo_1.png"/>
 </div>
@@ -542,6 +636,10 @@
     const heroGlow = document.getElementById('hero-glow');
     const engineStatus = document.getElementById('engine-status');
     const bodyRoot = document.getElementById('body-root');
+    
+    // Fire animation elements
+    const fireLeft = document.querySelector('.fire-left');
+    const fireRight = document.querySelector('.fire-right');
     
     // Audio elements
     const startSound = document.getElementById('engine-start-sound');
@@ -595,6 +693,10 @@
             needle.classList.add('idle-vibration');
             updateGauge(0);
             
+            // Activate fire animations
+            fireLeft.classList.add('active');
+            fireRight.classList.add('active');
+            
             // Start idle sound after engine start sound
             setTimeout(() => {
                 idleSound.play().catch(e => console.log('Idle sound failed:', e));
@@ -609,6 +711,10 @@
             idleSound.currentTime = 0;
             revSound.pause();
             revSound.currentTime = 0;
+            
+            // Deactivate fire animations
+            fireLeft.classList.remove('active');
+            fireRight.classList.remove('active');
             
             // Reset visuals
             ambientBg.style.filter = "brightness(0.2) contrast(125%)";
